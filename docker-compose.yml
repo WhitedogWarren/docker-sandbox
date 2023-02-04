@@ -1,0 +1,63 @@
+version: '3'
+services:
+  nodeapp:
+    build: ./nodeserver
+    env_file: .env
+    environment:
+      - DB_HOST=mongoserver
+      - DB_USER=$MONGODB_USER
+      - DB_PASSWORD=$MONGODB_PASSWORD
+      - DB_NAME=$MONGODB_DATABASE
+      - DB_PORT=$MONGODB_PORT
+    depends_on:
+      - mongoserver
+    expose:
+      - "3000"
+    volumes:
+      - dbdata:/data
+    networks:
+      - traefik
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.frontend.rule=Host:backend.localhost"
+      - "traefik.port=3000"
+
+  frontend:
+    build: ./front-end
+    expose:
+      - "80"
+    networks:
+      - traefik
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.frontend.rule=Host:frontend.localhost"
+      - "traefik.port=80"
+
+  
+  mongoserver:
+    image: mongo:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - 7017:$MONGODB_PORT
+    networks:
+      - traefik
+    volumes:
+      - dbdata:/data
+    
+networks:
+  traefik:
+    external:
+      name: traefik_webgateway
+
+
+volumes:
+  dbdata:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/whitedog44/docker-compose/dbdata'

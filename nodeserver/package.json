@@ -1,0 +1,17 @@
+{
+  "name": "nodeapp",
+  "version": "0.0.1",
+  "description": "simple node app",
+  "main": "start.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Whitedog",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0"
+  }
+}
