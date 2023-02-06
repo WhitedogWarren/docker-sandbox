@@ -1,3 +1,25 @@
 h1 {
     text-align: center;
 }
+
+main {
+    width: 100%;
+    position: relative;
+}
+
+#userForm {
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+#userlist {
+    top: 0;
+    left: 0;
+    border: 1px solid grey;
+    position: absolute;
+}
+
+#userlist h3 {
+    width: fit-content;
+}
