@@ -3,8 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>dockerApp frontend</title>
+  <link href="./styles/style.css" rel="stylesheet"/>
 </head>
 <body>
   <h2>Hello from Nginx container</h2>
+  <main>
+    <div id="userlist"></div>
+    <form id="userForm">
+      <label for="pseudo">Pseudo :</label>
+      <input type="text" id="pseudo" name="pseudo"/><br/>
+      <label for="firstName">Prénom :</label>
+      <input type="text" id="firstName" name="firstName"/><br/>
+      <label for="lastName">Nom :</label>
+      <input type="text" id="lastName" name="lastName"/><br/>
+      <input type="submit" value="Envoyer"/>
+    </form>
+  </main>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>

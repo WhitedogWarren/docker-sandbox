@@ -46,8 +46,24 @@ services:
     networks:
       - traefik
     volumes:
-      - dbdata:/data
-    
+      - dbdata:/data/db
+
+  portainer:
+    image: portainer/portainer
+    expose:
+      - "9000"
+    networks:
+      - traefik
+    labels:
+        - "traefik.docker.network=traefik"
+        - "traefik.frontend.rule=Host:portainer.localhost"
+        - "traefik.port=9000"
+        - "traefik.backend=portainer"
+        - "traefik.frontend.entryPoints=http"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainerdata:/data"
+  
 networks:
   traefik:
     external:
@@ -60,4 +76,10 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/whitedog44/docker-compose/dbdata'
+      device: '/home/whitedog/docker-compose/node_sandbox/dbdata'
+  portainerdata:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/whitedog/docker-compose/node_sandbox/portainerdata'

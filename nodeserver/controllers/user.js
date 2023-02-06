@@ -1,10 +1,6 @@
 const db = require("../models");
 const User = db.users;
 
-exports.getWelcome = (req, res) => {
-    res.status(200).json({message: 'welcome on board, M. White'});
-}
-
 exports.postUser = (req, res) => {
     if(!req.body.pseudo || !req.body.firstName || !req.body.lastName) {
         res.status(401).json({message: 'Formulaire invalide'});
